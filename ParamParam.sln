@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParamParam", "ParamParam\ParamParam.csproj", "{26561A14-4ABE-4CB4-BE2A-A1087A0A4434}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParamParamTests", "ParamParamTests\ParamParamTests.csproj", "{3951889E-148E-46FD-B28F-5BD544E8F550}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{26561A14-4ABE-4CB4-BE2A-A1087A0A4434}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26561A14-4ABE-4CB4-BE2A-A1087A0A4434}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26561A14-4ABE-4CB4-BE2A-A1087A0A4434}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3951889E-148E-46FD-B28F-5BD544E8F550}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3951889E-148E-46FD-B28F-5BD544E8F550}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3951889E-148E-46FD-B28F-5BD544E8F550}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3951889E-148E-46FD-B28F-5BD544E8F550}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

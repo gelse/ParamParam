@@ -27,7 +27,7 @@ namespace ParamParam
 
         public static ValidationResult<T> NotNull<T>(this IValidation<T> validation)
         {
-            TestHelper.Test(validation, o => o != null, "Parameter must not be null.", (message, parameterName) => new ArgumentNullException(message, parameterName));
+            TestHelper.Test(validation, o => o != null, "Parameter must not be null.", (message, parameterName) => new ArgumentNullException(parameterName, message));
             return new ValidationResult<T>(validation);
         }
     }
