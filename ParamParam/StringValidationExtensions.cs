@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 
 namespace ParamParam
 {
@@ -6,13 +7,13 @@ namespace ParamParam
     {
         public static ValidationResult<string> NotNullOrEmpty(this IValidation<string> validation)
         {
-            TestHelper.Test(validation, string.IsNullOrEmpty, "Parameter must not be null or empty.");
+            TestHelper.Test(validation, s => !string.IsNullOrEmpty(s), "Parameter must not be null or empty.");
             return new ValidationResult<string>(validation);
         }
 
         public static ValidationResult<string> NotNullOrWhitespace(this IValidation<string> validation)
         {
-            TestHelper.Test(validation, string.IsNullOrWhiteSpace, "Parameter must not be null or whitespace.");
+            TestHelper.Test(validation, s => !string.IsNullOrWhiteSpace(s), "Parameter must not be null or whitespace.");
             return new ValidationResult<string>(validation);
         }
         
@@ -25,15 +26,10 @@ namespace ParamParam
             return new ValidationResult<string>(validation);
         }
 
-        public static ValidationResult<string> MinLength(this IValidation<string> validation, int minLength)
+        public static ValidationResult<string> Regex(this IValidation<string> validation, string regex)
         {
-            TestHelper.Test(validation, s => s?.Length >= minLength, "Parameter must not be null or whitespace.");
-            return new ValidationResult<string>(validation);
-        }
-
-        public static ValidationResult<string> MaxLength(this IValidation<string> validation, int minLength)
-        {
-            TestHelper.Test(validation, s => s?.Length <= minLength, "Parameter must not be null or whitespace.");
+            // notice: Regex.IsMatch has an internal cache for the pattern - no need to do something ourself.
+            TestHelper.Test(validation, s => System.Text.RegularExpressions.Regex.IsMatch(s, regex), $"Parameter must match regular expression /{regex}/.");
             return new ValidationResult<string>(validation);
         }
     }
