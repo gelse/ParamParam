@@ -12,7 +12,8 @@ namespace ParamParamTests
         {
             object value = null;
 
-            new Action(() => value.WithParam(nameof(value)).NotNull()).Should().ThrowExactly<ArgumentNullException>("NotNull should throw ArgumentNullException if value is null.");
+            new Action(() => value.WithParam(nameof(value)).NotNull())
+                .Should().ThrowExactly<ArgumentNullException>("NotNull should throw ArgumentNullException if value is null.");
         }
         
         [Fact]
@@ -20,7 +21,8 @@ namespace ParamParamTests
         {
             object value = null;
 
-            new Action(() => value.WithParam(nameof(value)).NotNull()).Should().ThrowExactly<ArgumentNullException>()
+            new Action(() => value.WithParam(nameof(value)).NotNull())
+                .Should().ThrowExactly<ArgumentNullException>()
                 .WithMessage($"Parameter must not be null. (Parameter '{nameof(value)}')", "NotNull Exception message should describe which parameter is null.");
         }
 
@@ -29,7 +31,8 @@ namespace ParamParamTests
         {
             var value = new object();
 
-            new Action(() => value.WithParam(nameof(value)).NotNull()).Should().NotThrow("NotNull should not throw null if object is not null");
+            new Action(() => value.WithParam(nameof(value)).NotNull())
+                .Should().NotThrow("NotNull should not throw null if object is not null");
         }
         
         private class TestClass
@@ -44,7 +47,7 @@ namespace ParamParamTests
 
             var result = value.WithParam(nameof(value)).NotNull();
 
-            // the cast is necessary in this case, because of the implicit conversion.
+            // the cast is necessary in this case, because we must force an implicit conversion.
             ((TestClass) result).Should().BeSameAs(value);
         }
     }
