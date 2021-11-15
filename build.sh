@@ -5,12 +5,12 @@ wd=$(pwd)
 cd $wd/ParamParam
 dotnet restore
 
-cd $wd/ParamParamTest
+cd $wd/ParamParamTests
 dotnet restore
 
 # Build
 cd $wd/ParamParam
 dotnet build
 
-cd $wd/ParamParamTest
+cd $wd/ParamParamTests
 dotnet build
