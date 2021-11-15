@@ -9,6 +9,6 @@ steps:
   - echo hello
   - echo world
 - name: compile
-  image: microsoft/dotnet:sdk
+  image: mcr.microsoft.com/dotnet:sdk
   commands:
     - sh build.sh
