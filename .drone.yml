@@ -9,9 +9,10 @@ steps:
   - echo hello
   - echo world
 - name: compile
-  image: mcr.microsoft.com/dotnet/sdk:6.0
+  image: mcr.microsoft.com/dotnet/sdk:5.0
   commands:
-    - sh build.sh
+    - dotnet restore
+    - dotnet build
 - name: package
   image: alpine
   commands:
@@ -22,15 +23,15 @@ steps:
 - name: release
   image: plugins/gitea-release
   settings:
+    base_url: https://gitea.gelse.eu
     api_key:
       from_secret: gitea_api_key
-    base_url: https://gitea.gelse.eu
     files: 
       - releases/*.zip
   when:
     event: 
       - tag
 - name: test
-  image: mcr.microsoft.com/dotnet/sdk:6.0
+  image: mcr.microsoft.com/dotnet/sdk:5.0
   commands:
-    - sh test.sh
+    - dotnet test -v=normal --no-restore --no-build
