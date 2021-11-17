@@ -12,6 +12,17 @@ steps:
   image: mcr.microsoft.com/dotnet/sdk:6.0
   commands:
     - sh build.sh
+- name: release
+  image: plugins/gitea-release
+  settings:
+    api_key: 8884ddf4925b857bc797bf80936e6b98c824a006
+    base_url: https://gitea.gelse.eu
+    files: 
+      - /drone/src/ParamParam/bin/Debug/net5.0/*
+      - /drone/src/ParamParamTests/bin/Debug/net5.0/*
+  when:
+    event: 
+      - tag
 - name: test
   image: mcr.microsoft.com/dotnet/sdk:6.0
   commands:
