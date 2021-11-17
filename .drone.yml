@@ -12,6 +12,13 @@ steps:
   image: mcr.microsoft.com/dotnet/sdk:6.0
   commands:
     - sh build.sh
+- name: package
+  image: alpine
+  commands:
+    - apk add --update zip
+    - mkdir releases
+    - zip -0j releases/ParamParam.zip ParamParam/bin/Debug/net5.0/*.dll ParamParam/bin/Debug/net5.0/*.pdb ParamParam/bin/Debug/net5.0/*.json
+    - zip -0j releases/ParamParamTests.zip ParamParamTests/bin/Debug/net5.0/*.dll ParamParamTests/bin/Debug/net5.0/*.pdb ParamParamTests/bin/Debug/net5.0/*.json
 - name: release
   image: plugins/gitea-release
   settings:
@@ -19,8 +26,7 @@ steps:
       from_secret: gitea_api_key
     base_url: https://gitea.gelse.eu
     files: 
-      - /drone/src/ParamParam/bin/Debug/net5.0/*
-      - /drone/src/ParamParamTests/bin/Debug/net5.0/*
+      - releases/*.zip
   when:
     event: 
       - tag
