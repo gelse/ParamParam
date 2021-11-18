@@ -36,7 +36,7 @@ steps:
   commands:
     - dotnet test -v=n -l "trx;verbosity=normal;LogFileName=testresults.trx" -r ./TestResults
 
-notify:
+- name: notify
   image: drillster/drone-email
   host:
     from_secret: mail_server
