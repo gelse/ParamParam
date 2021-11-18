@@ -38,15 +38,15 @@ steps:
 
 - name: notify
   image: drillster/drone-email
-  host:
-    from_secret: mail_server
-  skip_verify: true
-  port: 465
-  username:
-    from_secret: mail_username
-  password:
-    from_secret: mail_password
-  from: drone@gelse.net
-  attachment: TestResults/testresults.trx
+  settings:
+    host:
+      from_secret: mail_server
+    username:
+      from_secret: mail_username
+    password:
+      from_secret: mail_password
+    from.address: drone@gelse.net
+    from.name: Drone CI/CD
+    attachment: TestResults/testresults.trx
   when:
     status: [ changed, failure, success ]
