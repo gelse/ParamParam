@@ -45,8 +45,7 @@ steps:
       from_secret: mail_username
     password:
       from_secret: mail_password
-    from.address: drone@gelse.net
-    from.name: Drone CI/CD
+    from: drone@gelse.net
     recipients: drone@gelse.net
     recipients_only: true
     attachment: TestResults/testresults.trx
