@@ -8,3 +8,46 @@ steps:
   commands:
   - echo hello
   - echo world
+- name: compile
+  image: mcr.microsoft.com/dotnet/sdk:5.0
+  commands:
+    - dotnet restore
+    - dotnet build
+- name: package
+  image: alpine
+  commands:
+    - apk add --update zip
+    - mkdir releases
+    - zip -0j releases/ParamParam.zip ParamParam/bin/Debug/net5.0/*.dll ParamParam/bin/Debug/net5.0/*.pdb ParamParam/bin/Debug/net5.0/*.json
+    - zip -0j releases/ParamParamTests.zip ParamParamTests/bin/Debug/net5.0/*.dll ParamParamTests/bin/Debug/net5.0/*.pdb ParamParamTests/bin/Debug/net5.0/*.json
+- name: release
+  image: plugins/gitea-release
+  settings:
+    base_url: https://gitea.gelse.eu
+    api_key:
+      from_secret: gitea_api_key
+    files: 
+      - releases/*.zip
+  when:
+    event: 
+      - tag
+- name: test
+  image: mcr.microsoft.com/dotnet/sdk:5.0
+  commands:
+    - dotnet test -v=n -l "trx;verbosity=normal;LogFileName=testresults.trx" -r ./TestResults
+
+- name: notify
+  image: drillster/drone-email
+  settings:
+    host:
+      from_secret: mail_server
+    username:
+      from_secret: mail_username
+    password:
+      from_secret: mail_password
+    from: drone@gelse.net
+    recipients: drone@gelse.net
+    recipients_only: true
+    attachment: TestResults/testresults.trx
+  when:
+    status: [ changed, failure, success ]
