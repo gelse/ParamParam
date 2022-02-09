@@ -21,11 +21,10 @@ steps:
     - zip -0j releases/ParamParam.zip ParamParam/bin/Debug/net5.0/*.dll ParamParam/bin/Debug/net5.0/*.pdb ParamParam/bin/Debug/net5.0/*.json
     - zip -0j releases/ParamParamTests.zip ParamParamTests/bin/Debug/net5.0/*.dll ParamParamTests/bin/Debug/net5.0/*.pdb ParamParamTests/bin/Debug/net5.0/*.json
 - name: release
-  image: plugins/gitea-release
+  image: plugins/github-release
   settings:
-    base_url: https://gitea.gelse.eu
     api_key:
-      from_secret: gitea_api_key
+      from_secret: github_api_key
     files: 
       - releases/*.zip
   when:
